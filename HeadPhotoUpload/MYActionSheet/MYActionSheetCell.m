@@ -78,6 +78,8 @@
 -(void)layoutSubviews
 {
     [super layoutSubviews];
+    self.label.frame = self.contentView.bounds;
+    [self.contentView addSubview:self.label];
 }
 
 -(void)dealloc
