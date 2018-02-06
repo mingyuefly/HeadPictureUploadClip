@@ -45,7 +45,7 @@ static CGFloat selectRegionLength = 30.0f;
 //@property (nonatomic, strong) UIImage *rotateImage; // 旋转后的图片
 @property (nonatomic, strong) UIImageView *clipImageView;//裁剪结果图片
 @property (nonatomic, strong) UIImage *clipImage;//裁剪结果图片
-@property (nonatomic, strong) UIImage *rotateClipImage;//旋转裁剪图片
+//@property (nonatomic, strong) UIImage *rotateClipImage;//旋转裁剪图片
 @property (nonatomic, assign) CGRect cropFrame;//最终裁剪框frame
 @property (nonatomic, assign) CGRect oldFrame;//初始化imageView的frame
 @property (nonatomic, assign) CGRect oriFrame;//初次update后的imageView的frame
@@ -768,6 +768,8 @@ static CGFloat selectRegionLength = 30.0f;
     NSLog(@"restoreAction");
     [self clearClipPicture];
     [UIView animateWithDuration:0.5 animations:^{
+        self.imageView.transform = CGAffineTransformIdentity;
+        self.rotateType = DefaultRotate;
         self.imageView.frame = self.oriFrame;
         self.lastFrame = self.oriFrame;
         self.squareView.frame = self.cropFrame;
@@ -791,9 +793,6 @@ static CGFloat selectRegionLength = 30.0f;
     if (!self.originalImage) {
         self.originalImage = self.oldImage;
     }
-//    if (!self.rotateClipImage) {
-//        self.rotateClipImage = self.clipImage;
-//    }
     [self rotateImageAction];
 }
 
