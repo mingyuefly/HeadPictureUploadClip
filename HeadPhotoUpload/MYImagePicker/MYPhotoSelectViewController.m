@@ -796,8 +796,10 @@ static CGFloat selectRegionLength = 30.0f;
     [self rotateImageAction];
 }
 
+// 两步，第一步self.originalImage旋转90度用于之后操作，第二步根据旋转状态旋转self.imageView
 -(void)rotateImageAction
 {
+    // 每次旋转都将图片originalImage旋转90度 ***** begin/
     CGRect bnds = CGRectZero;
     UIImage *image = self.originalImage;
     CGContextRef context = nil;
@@ -823,6 +825,9 @@ static CGFloat selectRegionLength = 30.0f;
     CGContextDrawImage(UIGraphicsGetCurrentContext(), rect, imageRef);
     self.originalImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
+    // 每次旋转都将图片originalImage旋转90度 ***** end/
+    
+    // 根据坐标和状态旋转self.imageView
     CGPoint roundPoint = self.squareView.center;
     CGAffineTransform transfrom = CGAffineTransformIdentity;
     switch (self.rotateType) {
@@ -866,8 +871,10 @@ static CGFloat selectRegionLength = 30.0f;
     }];
 }
 
+// 旋转点亮要裁剪的图片时，不调用getSubImage方法获取新的图片，只将原来要裁剪的图片同步旋转赋值给self.clipImageView，self.clipImageView不旋转
 -(void)rotateClipImageAction
 {
+    // 将被选中裁剪的图片每次旋转90度
     CGRect bnds = CGRectZero;
     UIImage *image = self.clipImage;
     CGContextRef context = nil;
